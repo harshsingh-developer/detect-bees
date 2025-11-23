@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DETECT-BEES | Deepfake Detector</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+</head>
+
+<body class="dark">
+  <!-- Top navigation -->
+  <nav class="topbar">
+    <div class="topbar-left">
+      <div class="brand-logo">🐝</div>
+      <div class="brand-text">
+        <div class="brand-name">DETECT-BEES</div>
+        <div class="brand-tagline">Deepfake Intelligence Scanner</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="mode-pill" id="modelModePill">ONNX · Local-only</span>
+      <button id="themeToggle" class="theme-btn" title="Toggle theme">🌙</button>
+    </div>
+  </nav>
+
+  <main class="page">
+    <div class="shell">
+      <!-- Left: Hero / description -->
+      <section class="hero-pane">
+        <h1>Trust your visuals again.</h1>
+        <p class="hero-sub">
+          DETECT-BEES analyzes images and videos locally using an ONNX deepfake model
+          to estimate if a face is AI-generated or manipulated.
+        </p>
+
+        <ul class="hero-bullets">
+          <li>🧠 On-device deepfake risk scoring</li>
+          <li>📸 Supports images & video files</li>
+          <li>🔒 No cloud upload · privacy-first</li>
+        </ul>
+
+        <div class="hero-meta">
+          <div class="meta-badge">
+            <span class="meta-label">Engine</span>
+            <span class="meta-value">ViT-based Deepfake Detector</span>
+          </div>
+          <div class="meta-badge">
+            <span class="meta-label">Mode</span>
+            <span class="meta-value">Single-frame analysis</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: Tool UI -->
+      <section class="tool-pane">
+        <header class="tool-header">
+          <div class="tool-title-group">
+            <h2>Analyze media</h2>
+            <p class="tool-sub">
+              Upload a portrait image or a clip with a clear face for best results.
+            </p>
+          </div>
+          <div class="tool-controls">
+            <label class="file-label">
+              <span>Choose file</span>
+              <input id="fileInput" type="file" accept="image/*,video/*" />
+            </label>
+          </div>
+        </header>
+
+        <div class="tool-status-row">
+          <div id="status" class="status">
+            Model initializing…
+          </div>
+        </div>
+
+        <!-- Drag & Drop Zone -->
+        <div id="dropZone" class="drop-zone">
+          <div class="drop-icon">⬆</div>
+          <div class="drop-text-main">Drag & drop an image or video here</div>
+          <div class="drop-text-sub">or use the “Choose file” button above</div>
+        </div>
+
+        <section class="preview-results">
+          <div class="preview">
+            <span class="preview-placeholder" id="previewPlaceholder">
+              No media loaded yet.<br />Upload to see a live preview.
+            </span>
+            <img id="imagePreview" style="display:none;" alt="Image preview" />
+            <video id="videoPreview" controls style="display:none;"></video>
+          </div>
+
+          <div class="results">
+            <div class="results-header">
+              <div>
+                <div class="score-label">Deepfake Risk Score</div>
+                <div class="score-bar">
+                  <div id="scoreFill" class="score-fill"></div>
+                </div>
+              </div>
+              <div class="score-value" id="scoreText">--%</div>
+            </div>
+
+            <div id="labelText" class="score-label score-label-state">
+              Awaiting input…
+            </div>
+
+            <div class="ai-panel">
+              <div class="ai-title">AI Insight</div>
+              <p id="aiInsight">
+                Upload an image or video to get a model-based explanation of
+                whether the face appears synthetic or manipulated.
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <!-- Hidden canvas for preprocessing (224x224) -->
+  <canvas id="workCanvas" width="224" height="224" style="display:none;"></canvas>
+  <script src="app.js"></script>
+</body>
+</html>

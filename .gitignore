@@ -1,0 +1,15 @@
+# macOS system files
+.DS_Store
+
+# Logs
+*.log
+
+# ONNX model files (optional - see note below)
+models/*.onnx
+
+# Temp files
+*.tmp
+*.temp
+
+# VS Code settings (optional)
+.vscode/
