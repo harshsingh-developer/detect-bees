@@ -40,7 +40,8 @@ detect-bees/
 The AI model file (`.onnx`) is not included in this repository due to size limitations.
 
 To use the project locally:
-1. Download the deepfake detection model file.
+1. Download the deepfake detection model file. [https://huggingface.co/onnx-community/Deep-Fake-Detector-v2-Model-ONNX/tree/main/onnx] named- model.onnx
 2. Create a folder named `models` in the project root.
-3. Place the `.onnx` file inside that folder (for example: `deepfake_light.onnx`).
+3. Place the `model.onnx` file inside that folder. (for example: `deepfake_light.onnx`). 
+
 
